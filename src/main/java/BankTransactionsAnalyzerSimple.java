@@ -2,50 +2,68 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class BankTransactionsAnalyzerSimple
 {
     private static final String RESOURCES = "src/main/resources";
+    static final BankStatementCSVParser bankStatementParser = new BankStatementCSVParser();
 
     public static void main(String... args) throws IOException
     {
         final Path path = Paths.get(RESOURCES + "/transactions.csv");
         List<String> lines = Files.readAllLines(path);
-        final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFromCSV(lines);
+
+        System.out.println("Общая сумма транзакций: " + calculateTotalAmount(bankTransactions) + "\n"
+        + "Сумма транзакций в Августе: " + calculateTotalAmountInMonth(bankTransactions, Month.AUGUST) + "\n"
+        + "Сумма транзакций в Сентябре: " + calculateTotalAmountInMonth(bankTransactions, Month.SEPTEMBER) + "\n"
+        + "Сумма транзакций по Salary: " + calculateTotalAmountForCategory(bankTransactions, "Salary") + "\n");
+
+    }
 
 
-        // простой подсчет общей суммы транзакций
-        double totalAmount = 0;
-
-        for(String el : lines)
+    // функция, считающий общую сумму по всем транзакциям
+    private static double calculateTotalAmount(List<BankTransaction> bankTransactions)
+    {
+        double amount = 0;
+        for(BankTransaction bankTransaction : bankTransactions)
         {
-            String[] columns = el.split(",");
-
-            totalAmount += Double.parseDouble(columns[2]); // парсим в Double и прибавляем к общей сумме
+            amount += bankTransaction.getAmount();
         }
 
-        // вывод
-        System.out.println("Total amount: " + totalAmount);
+        return amount;
+    }
 
-
-        // простой подсчет суммы транзакций в августе
-        double augAmount = 0;
-
-        for(String el : lines)
+    // функция, считающая общую сумму в конкретном месяце
+    private static double calculateTotalAmountInMonth(List<BankTransaction> bankTransactions, Month month)
+    {
+        double amount = 0;
+        for(BankTransaction bankTransaction : bankTransactions)
         {
-            String[] columns = el.split(",");
-            final LocalDate date = LocalDate.parse(columns[1], DATE_PATTERN); // считываем дату по формату DATE_PATTERN
-            if(date.getMonth() == Month.AUGUST)
+            if(bankTransaction.getDate().getMonth() == month)
             {
-                augAmount += Double.parseDouble(columns[2]); // парсим в Double и прибавляем к сумме транзакций в августе
+                amount += bankTransaction.getAmount();
             }
         }
 
-        // вывод
-        System.out.println("Total amount in August: " + augAmount);
+        return amount;
+    }
+
+    // функция, считающая сумму транзакций по категориям
+    private static double calculateTotalAmountForCategory(List<BankTransaction> bankTransactions, String category)
+    {
+        double amount = 0;
+        for(BankTransaction bankTransaction : bankTransactions)
+        {
+            if(bankTransaction.getDescription().equals(category))
+            {
+                amount += bankTransaction.getAmount();
+            }
+        }
+
+        return amount;
     }
 }
