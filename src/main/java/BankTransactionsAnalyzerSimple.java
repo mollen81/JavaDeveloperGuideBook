@@ -17,11 +17,17 @@ public class BankTransactionsAnalyzerSimple
 
         final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFromCSV(lines);
 
-        System.out.println("Общая сумма транзакций: " + BankStatementProcessor.calculateTotalAmount(bankTransactions) + "\n"
-        + "Сумма транзакций в Августе: " + BankStatementProcessor.calculateTotalAmountInMonth(bankTransactions, Month.AUGUST) + "\n"
-        + "Сумма транзакций в Сентябре: " + BankStatementProcessor.calculateTotalAmountInMonth(bankTransactions, Month.SEPTEMBER) + "\n"
-        + "Сумма транзакций по Salary: " + BankStatementProcessor.calculateTotalAmountForCategory(bankTransactions, "Salary") + "\n");
+        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
 
+        collectSummary(bankStatementProcessor);
+    }
+
+    static void collectSummary(BankStatementProcessor bankStatementProcessor)
+    {
+        System.out.println("Общая сумма транзакций: " + bankStatementProcessor.calculateTotalAmount());
+        System.out.println("Сумма транзакций в Августе: " + bankStatementProcessor.calculateTotalAmountInMonth(Month.AUGUST));
+        System.out.println("Сумма транзакций в Сентябре: " + bankStatementProcessor.calculateTotalAmountInMonth(Month.SEPTEMBER));
+        System.out.println("Сумма транзакций по Salary: " + bankStatementProcessor.calculateTotalAmountForCategory("Salary"));
     }
 
 }

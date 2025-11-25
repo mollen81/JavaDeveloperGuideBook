@@ -1,9 +1,10 @@
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankStatementProcessor
 {
-    private final List<BankTransaction> bankTransactions;
+    static List<BankTransaction> bankTransactions = new ArrayList<>();
 
     public BankStatementProcessor(List<BankTransaction> bankTransactions)
     {
@@ -11,7 +12,7 @@ public class BankStatementProcessor
     }
 
     // функция, считающий общую сумму по всем транзакциям
-    public static double calculateTotalAmount(List<BankTransaction> bankTransactions)
+    public static double calculateTotalAmount()
     {
         double amount = 0;
         for(BankTransaction bankTransaction : bankTransactions)
@@ -23,7 +24,7 @@ public class BankStatementProcessor
     }
 
     // функция, считающая общую сумму в конкретном месяце
-    public static double calculateTotalAmountInMonth(List<BankTransaction> bankTransactions, Month month)
+    public static double calculateTotalAmountInMonth(Month month)
     {
         double amount = 0;
         for(BankTransaction bankTransaction : bankTransactions)
@@ -38,7 +39,7 @@ public class BankStatementProcessor
     }
 
     // функция, считающая сумму транзакций по категориям
-    public static double calculateTotalAmountForCategory(List<BankTransaction> bankTransactions, String category)
+    public static double calculateTotalAmountForCategory(String category)
     {
         double amount = 0;
         for(BankTransaction bankTransaction : bankTransactions)
@@ -51,4 +52,5 @@ public class BankStatementProcessor
 
         return amount;
     }
+
 }
