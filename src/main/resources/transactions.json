@@ -1,5 +1,32 @@
-{
-  "description": "Salary",
-  "date": "18-08-2020",
-  "amount": 190000
-}
+[
+  {
+    "description": "Salary",
+    "date": "18-08-2020",
+    "amount": 190000
+  },
+  {
+    "description": "Salary",
+    "date": "20-08-2020",
+    "amount": 200000
+  },
+  {
+    "description": "Service",
+    "date": "31-08-2020",
+    "amount": -40000
+  },
+  {
+    "description": "Tesco",
+    "date": "09-09-2020",
+    "amount": -100
+  },
+  {
+    "description": "Coffee",
+    "date": "29-09-2020",
+    "amount": -90
+  },
+  {
+    "description": "Salary",
+    "date": "31-09-2020",
+    "amount": 250000
+  }
+]

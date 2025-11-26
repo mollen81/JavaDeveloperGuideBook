@@ -3,6 +3,8 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankStatementJSONParserTest
 {
@@ -26,4 +28,5 @@ public class BankStatementJSONParserTest
         Assert.assertEquals(expected.getDate(), result.getDate());
         Assert.assertEquals(expected.getDescription(), result.getDescription());
     }
+
 }

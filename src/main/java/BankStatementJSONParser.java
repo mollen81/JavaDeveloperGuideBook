@@ -10,21 +10,31 @@ public class BankStatementJSONParser implements BankStatementParser
         String[] columns;
         columns = line.split(",");
 
+        String description = "";
+        LocalDate date = null;
+        double amount = 0.0d;
+
         for(int i = 0; i < columns.length; i++)
         {
-            if(columns[i].substring(columns[i].indexOf(":") + 2, columns[i].length() - 1).startsWith("\""))
+            String field = columns[i].substring(columns[i].indexOf("\"") + 1, columns[i].indexOf("\"", 6));
+            switch (field)
             {
-                columns[i] = columns[i].substring(columns[i].indexOf(":") + 3, columns[i].length() - 1);
-            }
-            else
-            {
-                columns[i] = columns[i].substring(columns[i].indexOf(":") + 2, columns[i].length() - 1);
+                case "amount":
+                    amount = Double.parseDouble(columns[i].substring(columns[i].indexOf(":") + 2, columns[i].length() - 1));
+                    break;
+                case "description":
+                    description = columns[i].substring(columns[i].indexOf(":") + 3, columns[i].length() - 1);
+                    break;
+                case "date":
+                    date = LocalDate.parse(columns[i].substring(columns[i].indexOf(":") + 3, columns[i].length() - 1), DATE_PATTERN);
+                    break;
+                default:
+                    amount = 0.0d;
+                    description = null;
+                    date = null;
             }
         }
 
-        String description = columns[0];
-        LocalDate date = LocalDate.parse(columns[1], DATE_PATTERN);
-        double amount = Double.parseDouble(columns[2]);
 
         return new BankTransaction(description, date, amount);
     }
