@@ -5,7 +5,6 @@ import java.util.List;
 
 public class BankStatementCSVParser implements BankStatementParser
 {
-    private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // парсер строки в объект класса BankTransaction
     @Override
