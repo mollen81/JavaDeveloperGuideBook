@@ -3,12 +3,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankStatementCSVParser
+public class BankStatementCSVParser implements BankStatementParser
 {
     private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // парсер строки в объект класса BankTransaction
-    private BankTransaction parseFromCSV(final String line)
+    @Override
+    public BankTransaction parseFrom(final String line)
     {
         String[] columns = line.split(",");
 
@@ -22,13 +23,14 @@ public class BankStatementCSVParser
 
 
     // парсер всех строк CSV файла в массив объектов класса BankTransaction
-    List<BankTransaction> parseLinesFromCSV(final List<String> lines)
+    @Override
+    public List<BankTransaction> parseLinesFrom(final List<String> lines)
     {
         final List<BankTransaction> bankTransactions = new ArrayList<>();
 
         for (String line : lines)
         {
-            bankTransactions.add(parseFromCSV(line));
+            bankTransactions.add(parseFrom(line));
         }
 
         return bankTransactions;
