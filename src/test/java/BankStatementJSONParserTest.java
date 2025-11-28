@@ -29,4 +29,26 @@ public class BankStatementJSONParserTest
         Assert.assertEquals(expected.getDescription(), result.getDescription());
     }
 
+    @Test
+    public void shouldParseCorrectLines()
+    {
+        List<String> lines = new ArrayList<>();
+        lines.add("[\n");
+        lines.add("  {\n");
+        lines.add("    \"description\": \"Salary\",\n");
+        lines.add("    \"date\": \"18-08-2020\",\n");
+        lines.add("    \"amount\": 190000\n");
+        lines.add("  }\n");
+        lines.add("]");
+
+
+        List<BankTransaction> expected = new ArrayList<>();
+        expected.add(new BankTransaction(
+                "Salary",
+                LocalDate.of(2020, Month.AUGUST, 18),
+                190000));
+
+        List<BankTransaction> result = bankStatementJSONParser.parseLinesFrom(lines);
+    }
+
 }

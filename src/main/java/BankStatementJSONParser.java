@@ -16,7 +16,7 @@ public class BankStatementJSONParser implements BankStatementParser
 
         for(int i = 0; i < columns.length; i++)
         {
-            String field = columns[i].substring(columns[i].indexOf("\"") + 1, columns[i].indexOf("\"", 6));
+            String field = columns[i].substring(columns[i].indexOf("\"") + 1, columns[i].indexOf(":") - 1);
             switch (field)
             {
                 case "amount":
@@ -44,9 +44,15 @@ public class BankStatementJSONParser implements BankStatementParser
     {
         List<BankTransaction> bankTransactions = new ArrayList<>();
 
-        for(String line : lines)
+        String text = lines.toString().substring(1);
+        text = text.replaceAll("\n,", "");
+        text = text.substring(text.indexOf("{"), text.lastIndexOf("}"));
+
+        String[] newLines = text.split("}");
+
+        for(String line : newLines)
         {
-            bankTransactions.add(parseFrom(line));
+            BankTransaction bankTransaction = parseFrom(line);
         }
 
         return bankTransactions;
