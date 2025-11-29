@@ -53,4 +53,20 @@ public class BankStatementProcessor
         return amount;
     }
 
+    public static double calculateTotalAmountForCategoryInMonth(String category, Month month)
+    {
+        double amount = 0;
+        for(BankTransaction bankTransaction : bankTransactions)
+        {
+            if(category.equals(bankTransaction.getDescription()) && month == bankTransaction.getDate().getMonth())
+            {
+                amount += bankTransaction.getAmount();
+            }
+        }
+
+        return amount;
+    }
+
+
+
 }
