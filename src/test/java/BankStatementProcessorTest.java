@@ -53,4 +53,13 @@ public class BankStatementProcessorTest
 
         Assert.assertEquals(expected, result, 0.0d);
     }
+
+    @Test
+    public void shouldFindLessExpensiveCategoryForMonth()
+    {
+        String expected = "Salary: 390000.0";
+        String result = bankStatementProcessor.findLessExpensiveCategoryForMonth(Month.AUGUST);
+
+        Assert.assertEquals(expected, result);
+    }
 }
