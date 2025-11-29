@@ -44,11 +44,11 @@ public class BankStatementJSONParser implements BankStatementParser
     {
         List<BankTransaction> bankTransactions = new ArrayList<>();
 
-        String text = lines.toString().substring(1);
+        String text = toString(lines);
         text = text.replaceAll("\n,", "");
         text = text.substring(text.indexOf("{"), text.lastIndexOf("}"));
 
-        String[] newLines = text.split("}");
+        String[] newLines = text.split("},");
 
         for(String line : newLines)
         {
@@ -56,5 +56,17 @@ public class BankStatementJSONParser implements BankStatementParser
         }
 
         return bankTransactions;
+    }
+
+
+    private static String toString(List<String> lines)
+    {
+        String result = "";
+        for(String line : lines)
+        {
+            result = result.concat(line);
+        }
+
+        return result;
     }
 }
