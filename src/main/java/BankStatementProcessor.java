@@ -1,4 +1,5 @@
 import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
 
 public class BankStatementProcessor
@@ -66,6 +67,75 @@ public class BankStatementProcessor
         return amount;
     }
 
+    public String findMostExpensiveCategoryForMonth(Month month)
+    {
+        HashMap<String, Double> categoriesTotalAmounts = new HashMap<>();
+        Double maxValue = 0.0d;
+        String maxCategory = "";
+
+        for(BankTransaction bankTransaction : bankTransactions)
+        {
+            if(!categoriesTotalAmounts.containsKey(bankTransaction.getDescription()))
+            {
+               categoriesTotalAmounts.put(bankTransaction.getDescription(), bankTransaction.getAmount());
+            }
+            else
+            {
+                categoriesTotalAmounts.replace(bankTransaction.getDescription(),
+                        bankTransaction.getAmount(),
+                        categoriesTotalAmounts.get(bankTransaction.getDescription()) + bankTransaction.getAmount());
+            }
+        }
+
+        for(HashMap.Entry<String, Double> entry : categoriesTotalAmounts.entrySet())
+        {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+
+            if(maxValue < value)
+            {
+                maxValue = value;
+                maxCategory = key;
+            }
+        }
+
+        return maxCategory.concat(": ".concat(maxValue.toString()));
+    }
+
+    public String findLessExpensiveCategoryForMonth(Month month)
+    {
+        HashMap<String, Double> categoriesTotalAmounts = new HashMap<>();
+        Double minValue = 0.0d;
+        String minCategory = "";
+
+        for(BankTransaction bankTransaction : bankTransactions)
+        {
+            if(!categoriesTotalAmounts.containsKey(bankTransaction.getDescription()))
+            {
+                categoriesTotalAmounts.put(bankTransaction.getDescription(), bankTransaction.getAmount());
+            }
+            else
+            {
+                categoriesTotalAmounts.replace(bankTransaction.getDescription(),
+                        bankTransaction.getAmount(),
+                        categoriesTotalAmounts.get(bankTransaction.getDescription()) + bankTransaction.getAmount());
+            }
+        }
+
+        for(HashMap.Entry<String, Double> entry : categoriesTotalAmounts.entrySet())
+        {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+
+            if(minValue > value)
+            {
+                minValue = value;
+                minCategory = minCategory;
+            }
+        }
+
+        return minCategory.concat(": ".concat(minValue.toString()));
+    }
 
 
 }
