@@ -82,7 +82,6 @@ public class BankStatementProcessor
             else
             {
                 categoriesTotalAmounts.replace(bankTransaction.getDescription(),
-                        bankTransaction.getAmount(),
                         categoriesTotalAmounts.get(bankTransaction.getDescription()) + bankTransaction.getAmount());
             }
         }
