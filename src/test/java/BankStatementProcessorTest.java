@@ -117,6 +117,7 @@ public class BankStatementProcessorTest
     public void shouldFindLessExpensiveCategoryForMonth()
     {
         String expected = "";
+        Month month = Month.AUGUST;
 
         HashMap<String, Double> categoriesTotalAmounts = new HashMap<>();
         Double minValue = 10000000000.0d;
@@ -149,7 +150,7 @@ public class BankStatementProcessorTest
 
         expected = minCategory.concat(": ".concat(minValue.toString()));
 
-        String result = bankStatementProcessor.findMostExpensiveCategoryForMonth(Month.AUGUST);
+        String result = bankStatementProcessor.findMostExpensiveCategoryForMonth(month);
 
 
         Assert.assertEquals(expected, result);
@@ -159,6 +160,7 @@ public class BankStatementProcessorTest
     public void shouldFindMostExpensiveCategoryForMonth()
     {
         String expected = "";
+        Month month = Month.AUGUST;
 
         HashMap<String, Double> categoriesTotalAmounts = new HashMap<>();
         Double maxValue = 0.0d;
@@ -191,7 +193,7 @@ public class BankStatementProcessorTest
 
         expected = maxCategory.concat(": ".concat(maxValue.toString()));
 
-        String result = bankStatementProcessor.findMostExpensiveCategoryForMonth(Month.AUGUST);
+        String result = bankStatementProcessor.findMostExpensiveCategoryForMonth(month);
 
 
         Assert.assertEquals(expected, result);
