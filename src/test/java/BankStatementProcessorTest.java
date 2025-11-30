@@ -74,20 +74,43 @@ public class BankStatementProcessorTest
     @Test
     public void shouldCalculateTotalForCategoryInMonth()
     {
-        double expected = 0.0d;
-        String category = "Salary";
-        Month month = Month.AUGUST;
-        for(BankTransaction bankTransaction :  bankTransactions)
+        String expected = "";
+
+        HashMap<String, Double> categoriesTotalAmounts = new HashMap<>();
+        Double minValue = 0.0d;
+        String minCategory = "";
+
+        for(BankTransaction bankTransaction : bankTransactions)
         {
-            if(bankTransaction.getDescription().equals(category) && bankTransaction.getDate().getMonth() == month)
+            if(!categoriesTotalAmounts.containsKey(bankTransaction.getDescription()))
             {
-                expected += bankTransaction.getAmount();
+                categoriesTotalAmounts.put(bankTransaction.getDescription(), bankTransaction.getAmount());
+            }
+            else
+            {
+                categoriesTotalAmounts.replace(bankTransaction.getDescription(),
+                        categoriesTotalAmounts.get(bankTransaction.getDescription()) + bankTransaction.getAmount());
             }
         }
 
-        double result = bankStatementProcessor.calculateTotalAmountForCategoryInMonth(category, month);
+        for(HashMap.Entry<String, Double> entry : categoriesTotalAmounts.entrySet())
+        {
+            String key = entry.getKey();
+            Double value = entry.getValue();
 
-        Assert.assertEquals(expected, result, 0.0d);
+            if(minValue < value)
+            {
+                minValue = value;
+                minCategory = key;
+            }
+        }
+
+        expected = minCategory.concat(": ".concat(minValue.toString()));
+
+        String result = bankStatementProcessor.findMostExpensiveCategoryForMonth(Month.AUGUST);
+
+
+        Assert.assertEquals(expected, result);
     }
 
     @Test
