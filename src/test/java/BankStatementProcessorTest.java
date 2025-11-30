@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class BankStatementProcessorTest
@@ -101,8 +102,41 @@ public class BankStatementProcessorTest
     @Test
     public void shouldFindMostExpensiveCategoryForMonth()
     {
-        String expected = "Salary: 390000.0";
+        String expected = "";
+
+        HashMap<String, Double> categoriesTotalAmounts = new HashMap<>();
+        Double maxValue = 0.0d;
+        String maxCategory = "";
+
+        for(BankTransaction bankTransaction : bankTransactions)
+        {
+            if(!categoriesTotalAmounts.containsKey(bankTransaction.getDescription()))
+            {
+                categoriesTotalAmounts.put(bankTransaction.getDescription(), bankTransaction.getAmount());
+            }
+            else
+            {
+                categoriesTotalAmounts.replace(bankTransaction.getDescription(),
+                        categoriesTotalAmounts.get(bankTransaction.getDescription()) + bankTransaction.getAmount());
+            }
+        }
+
+        for(HashMap.Entry<String, Double> entry : categoriesTotalAmounts.entrySet())
+        {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+
+            if(maxValue < value)
+            {
+                maxValue = value;
+                maxCategory = key;
+            }
+        }
+
+        expected = maxCategory.concat(": ".concat(maxValue.toString()));
+
         String result = bankStatementProcessor.findMostExpensiveCategoryForMonth(Month.AUGUST);
+
 
         Assert.assertEquals(expected, result);
     }

@@ -75,14 +75,17 @@ public class BankStatementProcessor
 
         for(BankTransaction bankTransaction : bankTransactions)
         {
-            if(!categoriesTotalAmounts.containsKey(bankTransaction.getDescription()))
+            if(bankTransaction.getDate().getMonth() == month)
             {
-               categoriesTotalAmounts.put(bankTransaction.getDescription(), bankTransaction.getAmount());
-            }
-            else
-            {
-                categoriesTotalAmounts.replace(bankTransaction.getDescription(),
-                        categoriesTotalAmounts.get(bankTransaction.getDescription()) + bankTransaction.getAmount());
+                if (!categoriesTotalAmounts.containsKey(bankTransaction.getDescription()))
+                {
+                    categoriesTotalAmounts.put(bankTransaction.getDescription(), bankTransaction.getAmount());
+                }
+                else
+                {
+                    categoriesTotalAmounts.replace(bankTransaction.getDescription(),
+                            categoriesTotalAmounts.get(bankTransaction.getDescription()) + bankTransaction.getAmount());
+                }
             }
         }
 
