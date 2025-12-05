@@ -27,9 +27,11 @@ public class BankStatementHTMLParser implements BankStatementParser
     {
         List<BankTransaction> bankTransactions = new ArrayList<>();
 
-        String linesTotext = lines.toString();
+        String linesTotext = toString(lines);
         linesTotext = linesTotext.substring(linesTotext.indexOf("<tbody>"), linesTotext.indexOf("</tbody>"));
-        linesTotext = linesTotext.substring(linesTotext.indexOf("<tr>"), linesTotext.lastIndexOf("</tr>"));
+        linesTotext = linesTotext.substring(linesTotext.indexOf("<tr>") + 5, linesTotext.lastIndexOf("</tr>"));
+        linesTotext = linesTotext.replaceAll(" ", "");
+        linesTotext = linesTotext.replaceAll("\n", "");
         linesTotext = linesTotext.replaceAll("</tr><tr>", ",");
 
         String[] newLines = linesTotext.split(",");
@@ -40,6 +42,18 @@ public class BankStatementHTMLParser implements BankStatementParser
         }
 
         return bankTransactions;
+    }
+
+
+    private static String toString(List<String> lines)
+    {
+        String result = "";
+        for(String line : lines)
+        {
+            result = result.concat(line);
+        }
+
+        return result;
     }
 
 

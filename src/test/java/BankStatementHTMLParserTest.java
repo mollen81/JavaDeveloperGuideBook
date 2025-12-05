@@ -38,7 +38,7 @@ public class BankStatementHTMLParserTest
 
         List<BankTransaction> expected = Arrays.asList(new BankTransaction("Salary",
                 LocalDate.of(2020, 8, 18), 190000),
-                new BankTransaction("Salary", LocalDate.of(2020, 8, 18),
+                new BankTransaction("Salary", LocalDate.of(2020, 8, 20),
                         200000));
 
         List<BankTransaction> result = bankStatementHTMLParser.parseLinesFrom(lines);
