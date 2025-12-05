@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankStatementHTMLParser implements BankStatementParser
@@ -25,7 +25,21 @@ public class BankStatementHTMLParser implements BankStatementParser
     @Override
     public List<BankTransaction> parseLinesFrom(List<String> lines)
     {
-        return List.of(null);
+        List<BankTransaction> bankTransactions = new ArrayList<>();
+
+        String linesTotext = lines.toString();
+        linesTotext = linesTotext.substring(linesTotext.indexOf("<tbody>"), linesTotext.indexOf("</tbody>"));
+        linesTotext = linesTotext.substring(linesTotext.indexOf("<tr>"), linesTotext.lastIndexOf("</tr>"));
+        linesTotext = linesTotext.replaceAll("</tr><tr>", ",");
+
+        String[] newLines = linesTotext.split(",");
+
+        for(String line : newLines)
+        {
+            bankTransactions.add(parseFrom(line));
+        }
+
+        return bankTransactions;
     }
 
 
