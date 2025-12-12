@@ -8,11 +8,11 @@ import java.util.List;
 public class BankTransactionsAnalyzerSimple
 {
     private static final String RESOURCES = "src/main/resources";
-    static final BankStatementCSVParser bankStatementParser = new BankStatementCSVParser();
+    static final BankStatementParser bankStatementParser = new BankStatementHTMLParser();
 
     public static void main(String... args) throws IOException
     {
-        final Path path = Paths.get(RESOURCES + "/transactions.csv");
+        final Path path = Paths.get(RESOURCES + "/transactions.html");
         List<String> lines = Files.readAllLines(path);
 
         final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFrom(lines);
