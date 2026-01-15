@@ -57,6 +57,7 @@ public class BankStatementJSONParser implements BankStatementParser
         for(String line : newLines)
         {
             BankTransaction bankTransaction = parseFrom(line);
+            bankTransactions.add(bankTransaction);
         }
 
         return bankTransactions;
