@@ -1,5 +1,8 @@
+import models.BankTransaction;
 import org.junit.Assert;
 import org.junit.Test;
+import parsers.BankStatementCSVParser;
+import parsers.BankStatementParser;
 
 import java.time.LocalDate;
 import java.time.Month;

@@ -1,3 +1,5 @@
+package domain_objects;
+
 public class SummaryStatistics
 {
     private final double sum;

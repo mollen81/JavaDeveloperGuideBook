@@ -1,3 +1,7 @@
+package parsers;
+
+import models.BankTransaction;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,7 +9,7 @@ import java.util.List;
 public class BankStatementCSVParser implements BankStatementParser
 {
 
-    // парсер строки в объект класса BankTransaction
+    // парсер строки в объект класса models.BankTransaction
     @Override
     public BankTransaction parseFrom(final String line)
     {
@@ -20,7 +24,7 @@ public class BankStatementCSVParser implements BankStatementParser
     }
 
 
-    // парсер всех строк CSV файла в массив объектов класса BankTransaction
+    // парсер всех строк CSV файла в массив объектов класса models.BankTransaction
     @Override
     public List<BankTransaction> parseLinesFrom(final List<String> lines)
     {

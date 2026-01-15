@@ -1,5 +1,8 @@
+import models.BankTransaction;
 import org.junit.Assert;
 import org.junit.Test;
+import parsers.BankStatementJSONParser;
+import parsers.BankStatementParser;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -1,5 +1,7 @@
+import models.BankTransaction;
 import org.junit.Assert;
 import org.junit.Test;
+import service.BankStatementProcessor;
 
 import java.time.LocalDate;
 import java.time.Month;

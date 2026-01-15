@@ -1,5 +1,7 @@
+import models.BankTransaction;
 import org.junit.Assert;
 import org.junit.Test;
+import parsers.BankStatementHTMLParser;
 
 import java.time.LocalDate;
 import java.util.Arrays;

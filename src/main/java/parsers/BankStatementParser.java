@@ -1,4 +1,7 @@
-import java.nio.file.Path;
+package parsers;
+
+import models.BankTransaction;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
