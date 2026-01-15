@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 9
+targetCompatibility = 9
+
+mainClassName = "src/main/java/BankTransactionsAnalyzerSimple.java"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+}
