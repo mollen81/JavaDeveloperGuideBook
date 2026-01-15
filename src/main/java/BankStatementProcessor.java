@@ -107,7 +107,7 @@ public class BankStatementProcessor
     public String findLessExpensiveCategoryForMonth(Month month)
     {
         HashMap<String, Double> categoriesTotalAmounts = new HashMap<>();
-        Double minValue = 100000000000000.0d;
+        Double minValue = Double.MAX_VALUE;
         String minCategory = "";
 
         for(BankTransaction bankTransaction : bankTransactions)
